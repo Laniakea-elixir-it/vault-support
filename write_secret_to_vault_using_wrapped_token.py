@@ -20,7 +20,7 @@ def cli_options():
   parser.add_argument('-v', '--vault-url', dest='vault_url', help='Vault endpoint')
   parser.add_argument('-j', '--jwt-token', dest='jwt_token', help='JWT Token')
   parser.add_argument('-s', '--secret-path', dest='secret_path', help='Secret path on vault')
-  parser.add_argument('-p', '--policy', dest='vault_policy', help='VaVault Policy')
+  parser.add_argument('-p', '--policy', dest='vault_policy', default="write_only", help='Vault Policy')
   parser.add_argument('--wrap-ttl', dest='wrapped_token_duration', default='1h', help='Vault Wrapped Token time duration')
   parser.add_argument('--ttl', dest='token_time_duration',  default='1h',help='Vault Token time duration')
   parser.add_argument('--period', dest='renewal_time_duration',  default='1h',help='Vault Token renewal time duration')
@@ -77,7 +77,7 @@ def write_secret_to_vault_using_wrapped_token():
 
   write_token = unwrap_vault_token( options.vault_url, wrapped_token )
 
-  response_output = vault.write_secret( write_token, options.secret_path, options.user_value, options.user_key)
+  response_output = vault.write_secret( write_token, options.secret_path, options.user_key, options.user_value)
 
   parse_response(response_output)
 

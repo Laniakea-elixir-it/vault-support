@@ -19,12 +19,11 @@ def cli_options():
   parser = argparse.ArgumentParser(description='Vault connector')
   parser.add_argument('-v', '--vault-url', dest='vault_url', help='Vault endpoint')
   parser.add_argument('-j', '--jwt-token', dest='jwt_token', help='JWT Token')
-  parser.add_argument('-p', '--policy', dest='vault_policy', default="write_only", help='Vault Policy')
+  parser.add_argument('-p', '--policy', dest='vault_policy', default="read_only", help='Vault Policy')
   parser.add_argument('-s', '--secret-path', dest='secret_path', help='Secret path on vault')
   parser.add_argument('--ttl', dest='token_time_duration',  default='1h',help='Vault Token time duration')
   parser.add_argument('--period', dest='renewal_time_duration',  default='1h',help='Vault Token renewal time duration')
-  parser.add_argument('--key', dest='user_key', default='luks', help='Vault user key value, i.e. passphrase')
-  parser.add_argument('--value', dest='user_value', help='Vault user key')
+  parser.add_argument('--key', dest='user_key', default='luks', help='Vault user key value to read')
   return parser.parse_args()
 
 #______________________________________
@@ -53,12 +52,11 @@ def write_secret_to_vault():
 
   auth_token = vault.get_auth_token()
 
-  write_token = vault.get_token( auth_token, options.vault_policy, options.token_time_duration, options.renewal_time_duration)
+  read_token = vault.get_token( auth_token, options.vault_policy, options.token_time_duration, options.renewal_time_duration)
 
-  response_output = vault.write_secret( write_token, options.secret_path, options.user_key, options.user_value)
+  response_output = vault.read_secret( read_token, options.secret_path, options.user_key )
 
-  parse_response(response_output)
-
+  print(response_output)
 
 #______________________________________
 if __name__ == '__main__':
