@@ -1,8 +1,16 @@
 Vault support
 =============
 
+Crate wrapped token
+-------------------
+
+```
+# python3 create_wrapped_token.py -j $IAM_ACCESS_TOKEN -v $VAULT_URL --wrap-ttl $WRAPPED_TOKEN_DURATION --ttl $TOKEN_DURATION --period $RENEWED_TOKEN_DURATION
+```
+
 Read secret
 -----------
+
 ```
 # python3 read_secret_from_vault.py -v $VAULT_URL -j $IAM_ACCESS_TOKEN -p $READ_POLICY --secret-path $DESTINATION_PATH_ON_VAULT --key $KEY 
 ```
