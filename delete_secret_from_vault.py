@@ -39,6 +39,8 @@ def delete_secret_from_vault():
 
   vault.delete_secret( delete_token, options.secret_path  )
 
+  vault.revoke_token(auth_token)
+
 #______________________________________
 if __name__ == '__main__':
   delete_secret_from_vault()

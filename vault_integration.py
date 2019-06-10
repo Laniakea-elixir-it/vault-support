@@ -138,3 +138,17 @@ class VaultIntegration:
               }
 
     response = requests.delete(delete_url, headers=headers, verify=False)
+
+  #______________________________________
+  def revoke_token(self, token):
+    """
+    Revoke (self) token
+    """
+
+    revoke_url = self.vault_url + '/v1/auth/token/revoke-self'
+
+    headers = {
+               "X-Vault-Token": token
+              }
+
+    response = requests.post( revoke_url, headers=headers, verify=False )

@@ -58,6 +58,8 @@ def write_secret_to_vault():
 
   print(response_output)
 
+  vault.revoke_token(auth_token)
+
 #______________________________________
 if __name__ == '__main__':
   write_secret_to_vault()
