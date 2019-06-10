@@ -3,7 +3,9 @@ Vault support
 
 Read secret
 -----------
-
+```
+# python3 read_secret_from_vault.py -v $VAULT_URL -j $IAM_ACCESS_TOKEN -p $READ_POLICY --secret-path $DESTINATION_PATH_ON_VAULT --key $KEY 
+```
 
 Write secret
 ------------
